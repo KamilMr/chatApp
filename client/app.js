@@ -27,6 +27,7 @@ socket.on('message', ({ author, content }) => addMessage(author, content));
             alert('Login cannot be empty.');
         } else{
             userName = name;
+            socket.emit('newUser', { author: userName });
             loginForm.classList.remove('show');
             messagesSection.classList.add('show');
 
