@@ -18,11 +18,13 @@ const messageContentInput = document.getElementById('message-content');
 
     const signIn = name => {
         if(name == ''){
-            alert('Login cannot be empty.')
+            alert('Login cannot be empty.');
+        } else{
+            userName = name;
+            loginForm.classList.remove('show');
+            messagesSection.classList.add('show');
+
         }
-        userName = name;
-        loginForm.classList.remove('show');
-        messagesSection.classList.add('show');
     }
  
 /* SET UP ADDMESSAGEFORM */
@@ -37,8 +39,9 @@ const messageContentInput = document.getElementById('message-content');
     const sendMessage = (text) => {
         if(text == ''){
             alert('Text field is empty.')
+        }else{
+            addMessage(userName, text);
         }
-        addMessage(userName, text);
     }
 
     const addMessage = (author, content) => {
