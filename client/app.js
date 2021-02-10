@@ -11,7 +11,7 @@ const messageContentInput = document.getElementById('message-content');
 
     const welcomFormListener = () => (loginForm.onsubmit = () => {
         signIn(userNameInput.value);
-        return false;
+        return false; 
     });
 
     welcomFormListener();
@@ -41,7 +41,20 @@ const messageContentInput = document.getElementById('message-content');
         addMessage(userName, text);
     }
 
-    const addMessage = (userName, text) => {
-        console.log(userName, text);
+    const addMessage = (author, content) => {
+        const message = document.createElement('li');
+        message.classList.add('message');
+        message.classList.add('message--received');
+        
+        if(author == userName){
+            message.classList.add('message--self'); 
+            message.innerHTML = `
+           <h3 class="message__author">${userName === author ? 'You' : author }</h3>
+           <div class="message__content">
+             ${content}
+           </div>
+         `;
+        }
+        messagesList.appendChild(message);
         messageContentInput.value = '';
     }
