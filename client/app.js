@@ -6,6 +6,12 @@ const messagesList = document.getElementById('messages-list');
 const userNameInput = document.getElementById('username');
 const messageContentInput = document.getElementById('message-content');
 
+/* SOCKET IO */
+const socket = io(); // zainicjuj nowego klienta socketowego i zachowaj referencje do niego pod stałą socket.
+socket.on('message', ({ author, content }) => addMessage(author, content));
+
+
+
 /* SET UP LOGINFORM */
     var userName;
 
@@ -41,10 +47,11 @@ const messageContentInput = document.getElementById('message-content');
             alert('Text field is empty.')
         }else{
             addMessage(userName, text);
+            socket.emit('message', { author: userName, content: text });
         }
     }
 
-    function addMessage(author, content) {
+    const addMessage = (author, content) => {
         const message = document.createElement('li');
         message.classList.add('message');
         message.classList.add('message--received');
